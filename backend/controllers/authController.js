@@ -29,10 +29,10 @@ const registerUser = async (req, res) => {
     res.cookie("auth_token", accessToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: true,
+      secure: false,
     });
 
-    return response(res, 201, "User created successfully", {
+    return response(res, 200, "User created successfully", {
       username: newUser.username,
       email: newUser.email,
     });
@@ -62,9 +62,9 @@ const loginUser = async (req, res) => {
     res.cookie("auth_token", accessToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: true,
+      secure: false,
     });
-    return response(res, 201, "User logged in successfully", {
+    return response(res, 200, "User logged in successfully", {
       username: user.username,
       email: user.email,
       token: accessToken,
