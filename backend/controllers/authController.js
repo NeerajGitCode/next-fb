@@ -27,12 +27,12 @@ const registerUser = async (req, res) => {
     const accessToken = generateToken(newUser);
 
     res.cookie("auth_token", accessToken, {
-      httpOnly: false,
+      httpOnly: true,
       sameSite: "none",
-      secure: false,
+      secure: true,
     });
 
-    return response(res, 200, "User created successfully", {
+    return response(res, 201, "User created successfully", {
       username: newUser.username,
       email: newUser.email,
     });
@@ -60,11 +60,11 @@ const loginUser = async (req, res) => {
     const accessToken = generateToken(user);
     console.log(accessToken);
     res.cookie("auth_token", accessToken, {
-      httpOnly: false,
+      httpOnly: true,
       sameSite: "none",
-      secure: false,
+      secure: true,
     });
-    return response(res, 200, "User logged in successfully", {
+    return response(res, 201, "User logged in successfully", {
       username: user.username,
       email: user.email,
       token: accessToken,
