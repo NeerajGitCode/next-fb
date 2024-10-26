@@ -27,9 +27,10 @@ const registerUser = async (req, res) => {
     const accessToken = generateToken(newUser);
 
     res.cookie("auth_token", accessToken, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
+      httpOnly: true, // Prevents JavaScript access
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      sameSite: "None", // Required for cross-site cookie
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
     });
 
     return response(res, 201, "User created successfully", {
@@ -58,12 +59,13 @@ const loginUser = async (req, res) => {
     }
 
     const accessToken = generateToken(user);
-    console.log(accessToken);
     res.cookie("auth_token", accessToken, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
+      httpOnly: true, // Prevents JavaScript access
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      sameSite: "None", // Required for cross-site cookie
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
     });
+
     return response(res, 201, "User logged in successfully", {
       username: user.username,
       email: user.email,

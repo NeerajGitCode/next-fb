@@ -19,9 +19,10 @@ export const loginUser = async (userData) => {
       data: response.data, // Assuming your API sends user data in response.data
     };
   } catch (error) {
+    console.error("Login error:", error);
     return {
       status: "error",
-      data: error.response?.data || {}, // Provide some data for error cases
+      data: error.response?.data || { message: "An error occurred" }, // Provide some data for error cases
     };
   }
 };

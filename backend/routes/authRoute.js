@@ -30,9 +30,10 @@ router.get(
   (req, res) => {
     const accessToken = generateToken(req?.user);
     res.cookie("auth_token", accessToken, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
+      httpOnly: true, // Prevents JavaScript access
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      sameSite: "None", // Required for cross-site cookie
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
     });
     res.redirect(`${process.env.FRONTEND_URL}`);
   }
