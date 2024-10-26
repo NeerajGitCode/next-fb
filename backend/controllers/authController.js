@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
     const accessToken = generateToken(newUser);
 
     res.cookie("auth_token", accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
       secure: false,
     });
@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
     const accessToken = generateToken(user);
     console.log(accessToken);
     res.cookie("auth_token", accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
       secure: false,
     });
